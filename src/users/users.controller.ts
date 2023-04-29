@@ -8,7 +8,7 @@ export class UsersController {
     constructor(private readonly usersService: UsersService) { }
 
     @Post('/signup')
-    async createUser(
+    async createUser(req,res,
         @Body('password') password: string,
         @Body('username') username: string,
     ): Promise<User> {
@@ -18,6 +18,7 @@ export class UsersController {
             username,
             hashedPassword,
         );
+        
         return result;
     }
 }
