@@ -27,6 +27,8 @@
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
     "@types/bcrypt": "^5.0.0",
+    "argon": "^2.0.21",
+    "argon2": "^0.30.3",
     "bcrypt": "^5.1.0",
     "mongodb": "^5.3.0",
     "mongoose": "^7.0.4",

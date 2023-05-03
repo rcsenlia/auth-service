@@ -10,6 +10,8 @@ export class User {
 
   @Prop()
   password: string;
+  @Prop()
+  refreshToken: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

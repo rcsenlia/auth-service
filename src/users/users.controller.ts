@@ -1,24 +1,42 @@
-import { Body, Controller, Post, Get, Param } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { User } from './users.model';
-import * as bcrypt from 'bcrypt';
-
-@Controller('auth')
-export class UsersController {
-    constructor(private readonly usersService: UsersService) { }
-
-    @Post('/signup')
-    async createUser(req,res,
-        @Body('password') password: string,
-        @Body('username') username: string,
-    ): Promise<User> {
-        const saltOrRounds = 10;
-        const hashedPassword = await bcrypt.hash(password, saltOrRounds);
-        const result = await this.usersService.createUser(
-            username,
-            hashedPassword,
-        );
-        
-        return result;
+import {
+    Controller,
+    Get,
+    Post,
+    Body,
+    Patch,
+    Param,
+    Delete,
+  } from '@nestjs/common';
+  import { UsersService } from './users.service';
+  import { CreateUserDto } from './dto/create-user.dto';
+  import { UpdateUserDto } from './dto/update-user.dto';
+  
+  @Controller('users')
+  export class UsersController {
+    constructor(private readonly usersService: UsersService) {}
+  
+    @Post()
+    create(@Body() createUserDto: CreateUserDto) {
+      return this.usersService.create(createUserDto);
     }
-}
+  
+    @Get()
+    findAll() {
+      return this.usersService.findAll();
+    }
+  
+    @Get(':id')
+    findById(@Param('id') id: string) {
+      return this.usersService.findById(id);
+    }
+  
+    @Patch(':id')
+    update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+      return this.usersService.update(id, updateUserDto);
+    }
+  
+    @Delete(':id')
+    remove(@Param('id') id: string) {
+      return this.usersService.remove(id);
+    }
+  }
